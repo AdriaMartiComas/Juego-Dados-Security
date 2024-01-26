@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Afegir Usuari</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+
+	<div class="container">
+	
+		<h2>Afegir Usuari</h2>
+		<hr/>
+		<form th:action="@{/saveUsuari}" th:object="${usuari}" method="POST">
+		
+			<input type="text" th:field="*{numUsuari}" placeholder="Introdueix nom" class="form-control col-4 mb-4"/>
+			<input type="hidden" th:field="*{pk_UsuariID}"/>
+			<button class="btn btn-primary" type="submit">Guardar</button>
+			
+			
+		</form>
+		
+		<hr/>
+		<a th:href="@{/list}">Tornar</a>
+	</div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,76 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Llista Usuaris</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+
+	<div class="container">
+
+		<h2>Llista Usuaris</h2>
+		<hr />
+
+		<a th:href="@{/addUsuariForm}" class="btn btn-primary mb-2">Afegir
+			Usuari</a>
+		
+
+		<a th:href="@{/searchUsuariForm}" class="btn btn-primary mb-2">Buscar
+			Usuari</a>
+			
+		<hr />
+		<a th:href="@{/ranquingGuanyador}" class="btn btn-primary mb-2">Mostrar el millor jugador
+			</a>
+		
+
+		<a th:href="@{/ranquingPerdedor}" class="btn btn-primary mb-2">Mostrar el pitjor jugador
+			</a>
+		
+
+
+		<table class="table table-bordered table-striped">
+
+			<thead>
+
+				<tr>
+					<th>Nom</th>
+					<th>Data registre</th>
+					<th>Percentatge d'exit</th>
+					<th>Accions</th>
+
+				</tr>
+
+			</thead>
+
+			<tbody>
+				<tr th:each="usuari: ${usuaris}">
+					<td th:text="${usuari.numUsuari}"></td>
+					<td th:text="${usuari.dataRegistre}"></td>
+					<td th:text="${usuari.percentatgeExit}"></td>
+					<td><a
+						th:href="@{/showUpdateForm(pk_UsuariID=${usuari.pk_UsuariID})}"
+						class="btn btn-info">Actualitzar</a> <a
+						th:href="@{/deleteUsuari(pk_UsuariID=${usuari.pk_UsuariID})}"
+						class="btn btn-danger ml-2">Eliminar</a> <a
+						th:href="@{/mostrarPartidesUsuari(pk_UsuariID=${usuari.pk_UsuariID})}" 
+						class="btn btn-primary mb-2">Sel·leccionar</a></td>
+
+
+
+				</tr>
+			</tbody>
+
+
+		</table>
+
+	</div>
+
+
+
+</body>
+
+
+</html>
