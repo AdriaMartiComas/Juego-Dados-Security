@@ -5,10 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cat.model.domain.Usuari;
 
@@ -28,26 +25,26 @@ public class UsuariController {
 	}
 
 	// Crear Usuari
-//	@PostMapping("/crearUsuari")
-//	public ResponseEntity<Usuari> crearUsuari(@RequestBody Usuari usuari) {
-//		List<Usuari> list = usuariService.mostrarTot();
-//
-//		if (usuari.getNomUsuari().isBlank()) {
-//			usuari.setNomUsuari("ANONIM");
-//			usuariService.guardar(usuari);
-//
-//		}
-//
-//		if (!list.isEmpty() && !usuari.getNomUsuari().isBlank()) {
-//			for (Usuari usuarif : list) {
-//				if (usuari.getNomUsuari().equals(usuarif.getNomUsuari())) {
-//					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
-//				}
-//			}
-//		}
-//		usuariService.guardar(usuari);
-//		return new ResponseEntity<>(usuari, HttpStatus.CREATED);
-//	}
+/*	@PostMapping("/crearUsuari")
+	public ResponseEntity<Usuari> crearUsuari(@RequestBody Usuari usuari) {
+		List<Usuari> list = usuariService.mostrarTot();
+
+		if (usuari.getNomUsuari().isBlank()) {
+			usuari.setNomUsuari("ANONIM");
+			usuariService.guardar(usuari);
+
+		}
+
+		if (!list.isEmpty() && !usuari.getNomUsuari().isBlank()) {
+			for (Usuari usuarif : list) {
+				if (usuari.getNomUsuari().equals(usuarif.getNomUsuari())) {
+					return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
+				}
+			}
+		}
+		usuariService.guardar(usuari);
+		return new ResponseEntity<>(usuari, HttpStatus.CREATED);
+	}*/
 
 	// Actualitzar Usuari
 	@PutMapping("/modificarUsuari")

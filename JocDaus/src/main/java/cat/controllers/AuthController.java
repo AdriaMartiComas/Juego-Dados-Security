@@ -48,6 +48,9 @@ public class AuthController {
 		String token = jwtTokenGenerator.generateToken(authentication);
 		return new ResponseEntity<AuthResponseDto>(new AuthResponseDto(token), HttpStatus.OK);
 	}
+
+	//log out
+
 	
 	
 	@PostMapping("/registre")
