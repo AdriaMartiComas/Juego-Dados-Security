@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Juego de Dados</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .small-input {
+            width: 50%;
+        }
+         h1 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Juego de Dados</h1>
+    <h2>Login</h2>
+    <form th:action="@{/auth/login}" method="post">
+        <div class="form-group">
+            <label for="nombreLogin">Nombre</label>
+            <input type="text" class="form-control small-input" id="nombreLogin" name="nomUsuari" required>
+        </div>
+        <div class="form-group">
+            <label for="passwordLogin">Contraseña</label>
+            <input type="password" class="form-control small-input" id="passwordLogin" name="password" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Iniciar sesión</button>
+    </form>
+</div>
+<script>
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var nomUsuari = document.getElementById('nombreLogin').value;
+        var password = document.getElementById('passwordLogin').value;
+
+        fetch('http://localhost:9002/auth/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                nomUsuari: nomUsuari,
+                password: password
+            })
+        })
+        .then(response => response.text())
+        .then(token => {
+            // Almacena el token en el almacenamiento local
+            localStorage.setItem('token', token);
+        })
+        .catch(error => console.error('Error:', error));
+    });
+</script>
+
+</body>
+</html>

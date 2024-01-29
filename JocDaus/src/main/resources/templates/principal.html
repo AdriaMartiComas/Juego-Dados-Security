@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Página Principal</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .small-input {
+            width: 50%;
+        }
+        h1 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Bienvenid@ a Juego de Dados <span id="nombreUsuario"></span></h1>
+    <hr/>
+    <button id="jugarBtn" class="btn btn-primary">Jugar</button>
+    <button id="eliminarPartidasBtn" class="btn btn-danger">Eliminar todas las partidas</button>
+    <button id="rankingBtn" class="btn btn-primary">Ir al ranking de jugadores</button>
+    <hr/>
+    <h2>Partidas</h2>
+    <ul id="listaPartidas"></ul>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>Dau 1</th>
+            <th>Dau 2</th>
+            <th>resultat</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="partida: ${partidesUsuari}">
+            <td th:text="${partida.dau1}"></td>
+            <td th:text="${partida.dau2}"></td>
+            <td th:text="${partida.resultat}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    // Obtiene el token del almacenamiento local
+    const token = localStorage.getItem('token');
+
+    // Define la función fetchWithAuth para hacer solicitudes con el token de autenticación
+    function fetchWithAuth(url, options) {
+        const headersWithAuth = {
+            ...options.headers,
+            'Authorization': `Bearer ${token}`
+        };
+
+        return fetch(url, {
+            ...options,
+            headers: headersWithAuth
+        });
+    }
+
+    // Hace una solicitud a la API del servidor para obtener el nombre del usuario
+    fetchWithAuth('http://localhost:9002/api/usuario', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(usuario => {
+        // Actualiza el elemento nombreUsuario con el nombre del usuario
+        document.getElementById('nombreUsuario').textContent = usuario.nomUsuari;
+    })
+    .catch(error => console.error('Error:', error));
+
+    // Hace una solicitud a la API del servidor para obtener las partidas del usuario
+    fetchWithAuth('http://localhost:9002/api/partidas', {
+        method: 'GET'
+    })
+    .then(response => response.json())
+    .then(partidas => {
+        // Actualiza el elemento listaPartidas con las partidas del usuario
+        const listaPartidas = document.getElementById('listaPartidas');
+        partidas.forEach(partida => {
+            const li = document.createElement('li');
+            li.textContent = `Partida ${partida.id}: Dau 1 = ${partida.dau1}, Dau 2 = ${partida.dau2}, Resultat = ${partida.resultat}`;
+            listaPartidas.appendChild(li);
+        });
+    })
+    .catch(error => console.error('Error:', error));
+</script>
+
+</body>
+</html>

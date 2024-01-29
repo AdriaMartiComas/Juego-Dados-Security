@@ -8,10 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import cat.model.domain.Usuari;
 import cat.model.dto.AuthResponseDto;
@@ -39,9 +36,9 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<AuthResponseDto> login(@RequestBody LoginDto loginDto){
+	public ResponseEntity<AuthResponseDto> login(@RequestParam String nomUsuari, @RequestParam String password){
 		Authentication authentication = authManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginDto.getNomUsuari(), loginDto.getPassword()));
+				new UsernamePasswordAuthenticationToken(nomUsuari, password));
 		
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		
