@@ -13,6 +13,7 @@ import cat.model.domain.Usuari;
 import cat.model.service.UsuariService;
 
 @RestController
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class UsuariController {
 
 	@Autowired

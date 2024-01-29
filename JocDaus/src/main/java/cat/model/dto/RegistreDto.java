@@ -1,8 +1,12 @@
 package cat.model.dto;
 
+import javax.validation.constraints.NotEmpty;
+
 public class RegistreDto {
 
+	@NotEmpty(message = "El nom d'usuari no pot estar buit")
 	private String nomUsuari;
+	@NotEmpty(message = "La contrasenya no pot estar buida")
 	private String password;
 	
 	

@@ -8,10 +8,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import cat.model.domain.Usuari;
 import cat.model.dto.AuthResponseDto;
@@ -20,8 +18,11 @@ import cat.model.dto.RegistreDto;
 import cat.model.repository.UsuariRepository;
 import cat.security.JwtTokenGenerator;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = {"http://localhost:4200"})
 public class AuthController {
 
 	private AuthenticationManager authManager;
@@ -54,9 +55,10 @@ public class AuthController {
 	
 	
 	@PostMapping("/registre")
-	public ResponseEntity<String> registre(@RequestBody RegistreDto registreDto){
+	public ResponseEntity<String> registre(@Valid @RequestBody RegistreDto registreDto){
+
 		if(usuariRepository.existsByNomUsuari(registreDto.getNomUsuari())) {
-			return new ResponseEntity<String>("El nom d'usuari ja esta usat", HttpStatus.BAD_REQUEST);
+			throw new IllegalArgumentException("El nom d'usuari ja esta usat");
 		}
 		
 		Usuari usuari = new Usuari();
